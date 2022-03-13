@@ -13,7 +13,7 @@ public class MathQuiz {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static ArrayList<MathQuizPlayer> players = new ArrayList<>();
     public static void main(String args[]){
-        int multiplyer = 8;
+        int multiplyer = 10;
         int score = 0;
         boolean isStreak = true;
         boolean inGame = false;
@@ -40,13 +40,14 @@ public class MathQuiz {
                 int option = sc.nextInt();
                 if(option==1){
                     inGame = true;
-                    /*time = System.currentTimeMillis();
+                    time = System.currentTimeMillis();
                     int timeCount = 3;
-                    if(System.currentTimeMillis()==(time+1000)&&){
-                        System.out.println(timeCount);
-                        timeCount--;
+                    while(timeCount>0){
+                        if(System.currentTimeMillis()==(time+1000)){
+                            System.out.println(timeCount);
+                            timeCount--;
+                        }
                     }
-                     */
                     startGame = true;
                 }else if(option==2){
                     System.out.println(ANSI_WHITE + "- You will have 20 seconds to answer each question");
@@ -147,7 +148,8 @@ public class MathQuiz {
                     if(userAnswer==answer){
                         System.out.println("Correct!");
                         score++;
-                    }else{
+                        multiplyer += 10;
+                    }else {
                         System.out.println("Sorry! Game Over!");
                         isStreak = false;
                     }
