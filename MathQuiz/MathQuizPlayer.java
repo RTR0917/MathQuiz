@@ -13,6 +13,10 @@ public class MathQuizPlayer {
         scores = list;
     }
 
+    public void setPlayerName(String newName){
+        playerName = newName;
+    }
+
     public void updateScore(int newScore){
         scores.add(newScore);
         currentScore = newScore;
