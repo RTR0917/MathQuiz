@@ -1,17 +1,36 @@
 import java.util.*;
+import java.lang.*;
 public class MathQuizPlayer {
     private String playerName;
     private int playerScore;
     private ArrayList<Integer> scores = new ArrayList<>();
 
-    MathQuizPlayer(String name, int score){
+    MathQuizPlayer(String name){
         playerName = name;
-        playerScore = score;
+    }
+    MathQuizPlayer(String name, ArrayList<Integer> list){
+        playerName = name;
+        scores = list;
     }
 
     public void updateScore(int newScore){
         scores.add(newScore);
         playerScore = newScore;
+    }
+    public void printScores(){
+        String sc = playerName + " ";
+        for(int i=0; i<scores.size(); i++){
+            sc += scores.get(i) + " ";
+        }
+        System.out.println(sc);
+    }
+    public String getScores(){
+        String sc = playerName + " ";
+        for(int i=0; i<scores.size(); i++){
+            sc += scores.get(i) + " ";
+        }
+        sc+="\n";
+        return sc;
     }
 
     public void sortScores(){

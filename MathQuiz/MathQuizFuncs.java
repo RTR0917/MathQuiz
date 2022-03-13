@@ -1,4 +1,3 @@
-import java.time.*;
 public class MathQuizFuncs {
     private double end;
     MathQuizFuncs(){
@@ -17,7 +16,8 @@ public class MathQuizFuncs {
     public int division(int a, int b){
         return a/b;
     }
-    public void sortLeaderBoard(){
+
+    public static void sortLeaderBoard(){
         if(MathQuiz.players.size()>1){
             for(int i=0; i<MathQuiz.players.size(); i++){
                 for(int j=i; j<MathQuiz.players.size(); j++){
@@ -42,9 +42,11 @@ public class MathQuizFuncs {
         end = startingTime+60000;
         return (System.currentTimeMillis()<(end));
     }
+
     public double getRemainingTime(){
         return (end - System.currentTimeMillis())/1000;
     }
+
     public boolean usedUsername(String newUsername){
         for(int i=0; i<MathQuiz.players.size(); i++){
             if(newUsername.equals(MathQuiz.players.get(i))){

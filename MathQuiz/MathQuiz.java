@@ -38,7 +38,7 @@ public class MathQuiz {
         String userName = "";
         
         while(true){
-            MathQuizPlayer player = new MathQuizPlayer(userName, score);
+            MathQuizPlayer player = new MathQuizPlayer(userName);
             if(userName.equals("")) {
                 System.out.print("Enter Your name >");
                 userName = sc.nextLine();
