@@ -1,8 +1,8 @@
 import java.util.*;
 import java.lang.*;
 public class MathQuizPlayer {
-    private String playerName;
-    private int playerScore;
+    private final String playerName;
+    private int currentScore = 0;
     private ArrayList<Integer> scores = new ArrayList<>();
 
     MathQuizPlayer(String name){
@@ -15,7 +15,7 @@ public class MathQuizPlayer {
 
     public void updateScore(int newScore){
         scores.add(newScore);
-        playerScore = newScore;
+        currentScore = newScore;
     }
     public void printScores(){
         String sc = playerName + " ";
@@ -47,12 +47,13 @@ public class MathQuizPlayer {
         }
     }
 
-    public int getScore(){
-        return playerScore;
+    public int getCurrentScore(){
+        return currentScore;
     }
     public String getName(){
         return playerName;
     }
+
     public int getBestScore(){
         sortScores();
         if(scores.size()>=1){
@@ -62,7 +63,6 @@ public class MathQuizPlayer {
     }
 
     public String showResult(){
-        return playerName + ": " + playerScore + "\nBest score : " + getBestScore();
+        return playerName + ": " + currentScore + "\nBest score : " + getBestScore();
     }
-    
 }

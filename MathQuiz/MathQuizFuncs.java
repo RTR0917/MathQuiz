@@ -1,7 +1,6 @@
 public class MathQuizFuncs {
     private double end;
     MathQuizFuncs(){
-
     }
 
     public int addition(int a, int b){
@@ -21,7 +20,7 @@ public class MathQuizFuncs {
         if(MathQuiz.players.size()>1){
             for(int i=0; i<MathQuiz.players.size(); i++){
                 for(int j=i; j<MathQuiz.players.size(); j++){
-                    if(MathQuiz.players.get(i).getScore()>MathQuiz.players.get(j).getScore()){
+                    if(MathQuiz.players.get(i).getCurrentScore()>MathQuiz.players.get(j).getCurrentScore()){
                         MathQuizPlayer temp = MathQuiz.players.get(i);
                         MathQuiz.players.set(i,MathQuiz.players.get(j));
                         MathQuiz.players.set(j, temp);
@@ -34,7 +33,7 @@ public class MathQuizFuncs {
         String leaderboard = "";
         sortLeaderBoard();
         for(int i=0; i<MathQuiz.players.size(); i++){
-            leaderboard += "\n" + (i+1) + ". " + MathQuiz.players.get(i).getName() + " : " + MathQuiz.players.get(i).getScore();
+            leaderboard += "\n" + (i+1) + ". " + MathQuiz.players.get(i).getName() + " : " + MathQuiz.players.get(i).getCurrentScore();
         }
         return leaderboard;
     }
