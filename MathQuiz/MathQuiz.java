@@ -14,6 +14,20 @@ public class MathQuiz {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static ArrayList<MathQuizPlayer> players = new ArrayList<>();
+
+    // Prints the number of seconds left before game starts staring with numSeconds
+    public static void printCountDown(int numSeconds) {
+        for (int i = numSeconds; i > 0; i--) {
+            System.out.println(i);
+
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                // do nothing with the exception
+            }
+        }
+    }
+
     public static void main(String args[]){
         int multiplyer = 10;
         int score = 0;
@@ -114,18 +128,10 @@ public class MathQuiz {
             }
             while(inGame){
                 System.out.println(ANSI_RED + "YOU WILL HAVE 60 SECONDS TO COMPLETE" + ANSI_RESET);
+
                 System.out.println("Starting in...");
-                time = System.currentTimeMillis();
-                int timeCount = 3;
-                while(timeCount>=0){
-                    if(System.currentTimeMillis()==(time+1000)){
-                        time = System.currentTimeMillis();
-                        if(timeCount!=0){
-                            System.out.println(timeCount);
-                        }
-                        timeCount--;
-                    }
-                }
+                printCountDown(3);
+
                 long startingTime = System.currentTimeMillis();
                 while(isStreak && game.inTime(startingTime)){
                     double num1Rand = Math.random();
