@@ -13,7 +13,7 @@ public class MathQuiz {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static ArrayList<MathQuizPlayer> players = new ArrayList<>();
     public static void main(String args[]){
-        int multiplyer = 10;
+        int multiplyer = 8;
         int score = 0;
         boolean isStreak = true;
         boolean inGame = false;
