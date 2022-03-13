@@ -15,6 +15,8 @@ public class MathQuiz {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static ArrayList<MathQuizPlayer> players = new ArrayList<>();
 
+    //Give each player a number and be able to log back in
+
     // Prints the number of seconds left before game starts staring with numSeconds
     public static void printCountDown(int numSeconds) {
         for (int i = numSeconds; i > 0; i--) {
@@ -36,12 +38,13 @@ public class MathQuiz {
         String[] signs = {" + ", " - " , " * " , " / "};
         Scanner sc = new Scanner(System.in);
         String userName = "";
+        MathQuizPlayer player = new MathQuizPlayer(userName);
         
         while(true){
-            MathQuizPlayer player = new MathQuizPlayer(userName);
             if(userName.equals("")) {
                 System.out.print("Enter Your name >");
                 userName = sc.nextLine();
+                player.setPlayerName(userName);
                 players.add(player);
             }
                 MathQuizFuncs game = new MathQuizFuncs();
@@ -94,6 +97,7 @@ public class MathQuiz {
                     while(!newUsername){
                         System.out.println("What is your new username ?");
                         userName = sc.nextLine();
+                        player.setPlayerName(userName);
                         if(!game.usedUsername(userName)){
                             System.out.println("\nWelcome " + userName + ".");
                             newUsername = true;
