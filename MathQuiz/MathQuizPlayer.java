@@ -1,8 +1,8 @@
 import java.util.*;
 public class MathQuizPlayer {
-    String playerName;
-    int playerScore;
-    ArrayList<Integer> scores = new ArrayList<>();
+    private String playerName;
+    private int playerScore;
+    private ArrayList<Integer> scores = new ArrayList<>();
 
     MathQuizPlayer(String name, int score){
         playerName = name;

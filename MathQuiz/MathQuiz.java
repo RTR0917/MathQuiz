@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+
 import java.time.*;
 import java.util.*;
 import java.lang.*;
@@ -19,14 +21,16 @@ public class MathQuiz {
         boolean inGame = false;
         String[] signs = {" + ", " - " , " * " , " / "};
         Scanner sc = new Scanner(System.in);
-        String userName;
+        String userName = "";
         
         while(true){
-            System.out.print("Enter Your name >");
-            userName = sc.nextLine();
             MathQuizPlayer player = new MathQuizPlayer(userName, score);
-            MathQuizFuncs game = new MathQuizFuncs();
-            players.add(player);
+            if(userName.equals("")) {
+                System.out.print("Enter Your name >");
+                userName = sc.nextLine();
+                players.add(player);
+            }
+                MathQuizFuncs game = new MathQuizFuncs();
             System.out.println("\nWelcome " + userName + ".");
             long time = System.currentTimeMillis();
             while((time+1000)>System.currentTimeMillis()){
@@ -36,24 +40,17 @@ public class MathQuiz {
             time = System.currentTimeMillis();
             boolean startGame = false;
             while(!startGame){
-                System.out.println(ANSI_GREEN + "1.START GAME\n2.Rules\n3.Leaderboard\n4.My best score\n5.Quit Game" + ANSI_RESET);
+                System.out.println(ANSI_GREEN + "1.START GAME\n2.Rules\n3.Leaderboard\n4.My best score\n5.Change username\n6.Quit Game" + ANSI_RESET);
                 int option = sc.nextInt();
                 if(option==1){
                     inGame = true;
-                    time = System.currentTimeMillis();
-                    int timeCount = 3;
-                    while(timeCount>0){
-                        if(System.currentTimeMillis()==(time+1000)){
-                            System.out.println(timeCount);
-                            timeCount--;
-                        }
-                    }
                     startGame = true;
                 }else if(option==2){
-                    System.out.println(ANSI_WHITE + "- You will have 20 seconds to answer each question");
+                    System.out.println(ANSI_WHITE + "- You will have 60 seconds to answer as many questions as you can");
                     System.out.println("- All division problems will not have any remainder(The answer will always be in a whole number)");
                     System.out.println("- You will earn 10 points per question");
-                    System.out.println("- The game will be over if you make mistake" + ANSI_RESET);
+                    System.out.println("- The more you solve questions, the more harder they become");
+                    System.out.println("- Mistakes will give 0 points" + ANSI_RESET);
                     time = System.currentTimeMillis();
                     while((time+5000)>System.currentTimeMillis()){
                         System.out.print("");
@@ -79,6 +76,31 @@ public class MathQuiz {
                         System.out.print("");
                     }
                 }else if(option==5){
+                    boolean newUsername = false;
+                    while(!newUsername){
+                        System.out.println("What is your new username ?");
+                        userName = sc.nextLine();
+                        if(!game.usedUsername(userName)){
+                            System.out.println("\nWelcome " + userName + ".");
+                            newUsername = true;
+                        }else{
+                            System.out.println("\nThat username is already used.");
+                            System.out.println("Would you like to continue with this used account? y/n");
+                            String nameChoice = sc.nextLine();
+                            boolean nameChoiceBoolean = false;
+                            while(!nameChoiceBoolean){
+                                if(nameChoice.equals("y")){
+                                    System.out.println("Welcome back " + userName);
+                                    newUsername = true;
+                                }else if(nameChoice.equals("n")){
+                                    nameChoiceBoolean = true;
+                                }else{
+                                    System.out.println("Please answer with y or n.");
+                                }
+                            }
+                        }
+                    }
+                }else if(option==6){
                     System.out.println("Thank you for playing!");
                     time = System.currentTimeMillis();
                     while((time+1000)>System.currentTimeMillis()){
@@ -86,33 +108,43 @@ public class MathQuiz {
                     }
                     System.exit(-1);
                 }else{
-                    System.out.println("Please choose an option by entering a number from 1 to 5");
+                    System.out.println("Please choose an option by entering a number from 1 to 6");
                 }
                 System.out.println("\n");
             }
             while(inGame){
-                while(isStreak){
+                System.out.println(ANSI_RED + "YOU WILL HAVE 60 SECONDS TO COMPLETE" + ANSI_RESET);
+                System.out.println("Starting in...");
+                time = System.currentTimeMillis();
+                int timeCount = 3;
+                while(timeCount>=0){
+                    if(System.currentTimeMillis()==(time+1000)){
+                        time = System.currentTimeMillis();
+                        if(timeCount!=0){
+                            System.out.println(timeCount);
+                        }
+                        timeCount--;
+                    }
+                }
+                long startingTime = System.currentTimeMillis();
+                while(isStreak && game.inTime(startingTime)){
                     double num1Rand = Math.random();
                     double num2Rand = Math.random();
-                    System.out.println(num1Rand + " " + num2Rand);
                     int number1 = ((int)(num1Rand*multiplyer))+1;
                     int number2 = ((int)(num2Rand*multiplyer))+1;
-                    System.out.println(number1 + " " + number2);
 
-                    while(number1%number2!=0 || number2%number1!=0){
+                    while(number1%number2!=0 && number2%number1!=0){
                         num1Rand = Math.random();
                         num2Rand = Math.random();
-                        System.out.println("\n" + num1Rand + " " + num2Rand);
                         number1 = ((int)(num1Rand*multiplyer))+1;
                         number2 = ((int)(num2Rand*multiplyer))+1;
-                        System.out.println(number1 + " " + number2 + "\n");
                     }
 
-                    int denominator = number1;
-                    int numerator = number2;
-                    if(number1%number2==0){
-                        denominator = number2;
-                        numerator = number1;
+                    int numerator = number1;
+                    int denominator = number2;
+                    if(number2%number1==0){
+                        numerator = number2;
+                        denominator = number1;
                     }
                     int numSign = (int)(Math.random()*4);
                     int answer = 0;
@@ -120,45 +152,35 @@ public class MathQuiz {
                     if(numSign==0){
                         answer = game.addition(number1, number2);
                     }else if(numSign==1){
-                        answer = game.substraction(number1, number2);
+                        answer = game.substraction(numerator, denominator);
                     }else if(numSign==2){
                         answer = game.multiplication(number1, number2);
                     }else if(numSign==3){
                         answer = game.division(numerator, denominator);
-                    }else{
-                        System.out.println("Error: numSign = " + numSign);
-                        System.exit(-1);
                     }
-                    /*System.out.println(ANSI_RED + "20 SECONDS LIMIT" + ANSI_RESET);
-                    System.out.println("Starting in...");
-                    time = System.currentTimeMillis();
-                    int timeCount = 3;
-                    while(System.currentTimeMillis()<=time+3000){
-                        System.out.println(ANSI_RED + timeCount + ANSI_RESET);
-                        timeCount--;
-                    }
-                    boolean qAnswered = false;
-                    */
-                    System.out.println(ANSI_WHITE + "What is " + number1 + signs[numSign] + number2 + "?" + ANSI_RESET);
-                    //!!!!!!!!!!!!!!!!!!!!WORK!!!!!!!!!!!!!!!!!!!!!!!
-                    //20 seconds
-                    //!!!!!!!!!!!!!!!!!!!!WORK!!!!!!!!!!!!!!!!!!!!!!!
+                    System.out.println("Time remaining :" + game.getRemainingTime());
+                    System.out.println(ANSI_WHITE + "What is " + numerator + signs[numSign] + denominator + "?" + ANSI_RESET);
                     int userAnswer = sc.nextInt();
 
                     if(userAnswer==answer){
                         System.out.println("Correct!");
-                        score++;
+                        score+=10;
                         multiplyer += 10;
                     }else {
-                        System.out.println("Sorry! Game Over!");
-                        isStreak = false;
+                        System.out.println("Incorrect!");
+                        System.out.println("The answer is: " + answer);
                     }
+                }
+                if(isStreak){
+                    System.out.println("Time up!");
                 }
                 player.updateScore(score);
                 score = 0;
                 multiplyer = 10;
-                player.showResult();
+                System.out.println(player.showResult());
                 System.out.println("Continue? y/n >");
+                System.out.println("Choose n to go back home");
+                    sc.nextLine();
                     String userContinue = sc.nextLine();
                     if(userContinue.equals("n")){
                         inGame = false;

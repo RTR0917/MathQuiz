@@ -1,6 +1,6 @@
 import java.time.*;
 public class MathQuizFuncs {
-
+    private double end;
     MathQuizFuncs(){
 
     }
@@ -37,5 +37,20 @@ public class MathQuizFuncs {
             leaderboard += "\n" + (i+1) + ". " + MathQuiz.players.get(i).getName() + " : " + MathQuiz.players.get(i).getScore();
         }
         return leaderboard;
+    }
+    public boolean inTime(long startingTime){
+        end = startingTime+60000;
+        return (System.currentTimeMillis()<(end));
+    }
+    public double getRemainingTime(){
+        return (end - System.currentTimeMillis())/1000;
+    }
+    public boolean usedUsername(String newUsername){
+        for(int i=0; i<MathQuiz.players.size(); i++){
+            if(newUsername.equals(MathQuiz.players.get(i))){
+                return true;
+            }
+        }
+        return false;
     }
 }
