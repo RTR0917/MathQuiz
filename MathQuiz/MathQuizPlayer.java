@@ -1,7 +1,7 @@
 import java.util.*;
 import java.lang.*;
 public class MathQuizPlayer {
-    private final String playerName;
+    private String playerName;
     private int currentScore = 0;
     private ArrayList<Integer> scores = new ArrayList<>();
 
