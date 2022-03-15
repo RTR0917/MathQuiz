@@ -41,6 +41,7 @@ public class MathQuiz {
         MathQuizPlayer player = new MathQuizPlayer(userName);
         
         while(true){
+            boolean newUser = false;
             if(userName.equals("")) {
                 System.out.print("Enter Your name >");
                 userName = sc.nextLine();
@@ -57,7 +58,7 @@ public class MathQuiz {
             time = System.currentTimeMillis();
             boolean startGame = false;
             while(!startGame){
-                System.out.println(ANSI_GREEN + "1.START GAME\n2.Rules\n3.Leaderboard\n4.My best score\n5.Change username\n6.Quit Game" + ANSI_RESET);
+                System.out.println(ANSI_GREEN + "1.START GAME\n2.Rules\n3.Leaderboard\n4.My best score\n5.Change username\n6.New player\n7.Quit Game" + ANSI_RESET);
                 int option = sc.nextInt();
                 if(option==1){
                     inGame = true;
@@ -96,11 +97,13 @@ public class MathQuiz {
                     boolean newUsername = false;
                     while(!newUsername){
                         System.out.println("What is your new username ?");
+                        sc.nextLine();
                         userName = sc.nextLine();
-                        player.setPlayerName(userName);
                         if(!game.usedUsername(userName)){
                             System.out.println("\nWelcome " + userName + ".");
                             newUsername = true;
+                            player.setPlayerName(userName);
+
                         }else{
                             System.out.println("\nThat username is already used.");
                             System.out.println("Would you like to continue with this used account? y/n");
@@ -119,6 +122,11 @@ public class MathQuiz {
                         }
                     }
                 }else if(option==6){
+                    userName= "";
+                    startGame = true;
+                    newUser = true;
+                }
+                else if(option==7){
                     System.out.println("Thank you for playing!");
                     time = System.currentTimeMillis();
                     while((time+1000)>System.currentTimeMillis()){
@@ -126,7 +134,7 @@ public class MathQuiz {
                     }
                     System.exit(-1);
                 }else{
-                    System.out.println("Please choose an option by entering a number from 1 to 6");
+                    System.out.println("Please choose an option by entering a number from 1 to 7");
                 }
                 System.out.println("\n");
             }
