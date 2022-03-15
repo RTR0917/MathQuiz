@@ -2,7 +2,7 @@ import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.io.*;
 public class ScoreSaveTest {
-    public static void main(String[] args) throws Exception{
+    public void main(String[] args) throws Exception{
         //System.out.println(readData("Rina 11 12 13 14").showResult());
         //System.out.println(readDataNew("Rina 110 12 13 14").showResult());
 
@@ -37,7 +37,7 @@ public class ScoreSaveTest {
         bw.close();
     }
 
-    public static MathQuizPlayer readDataNew(String data) {
+    public MathQuizPlayer readDataNew(String data) {
 
         String [] fileInput = data.split(" ");
         String name = fileInput[0];
@@ -50,7 +50,7 @@ public class ScoreSaveTest {
     }
 
     // Rina's implementation of reading data by a space delimited input
-    public static MathQuizPlayer readData(String data){
+    public MathQuizPlayer readData(String data){
         String name = "";
         int score = 0;
         ArrayList<Integer> scores = new ArrayList<>();

@@ -33,7 +33,9 @@ public class MathQuizFuncs {
         String leaderboard = "";
         sortLeaderBoard();
         for(int i=0; i<MathQuiz.players.size(); i++){
-            leaderboard += "\n" + (i+1) + ". " + MathQuiz.players.get(i).getName() + " : " + MathQuiz.players.get(i).getCurrentScore();
+            for(int j=0; j<MathQuiz.players.get(i).numScores(); i++){
+                leaderboard += "\n" + (i+1) + ". " + MathQuiz.players.get(i).getName() + " : " + MathQuiz.players.get(i).getCurrentScore();
+            }
         }
         return leaderboard;
     }
@@ -48,10 +50,11 @@ public class MathQuizFuncs {
 
     public boolean usedUsername(String newUsername){
         for(int i=0; i<MathQuiz.players.size(); i++){
-            if(newUsername.equals(MathQuiz.players.get(i))){
+            if(newUsername.equals(MathQuiz.players.get(i).getName())){
                 return true;
             }
         }
         return false;
     }
+
 }
